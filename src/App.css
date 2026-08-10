@@ -1,0 +1,1631 @@
+/* =====================================================
+   RESET
+   ===================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background: #000;
+  cursor: crosshair;
+  font-family: Arial, sans-serif;
+}
+
+/* =====================================================
+   COSMOS
+   ===================================================== */
+
+.cosmos {
+  width: 100vw;
+  height: 100vh;
+
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 46%,
+      rgba(18, 24, 55, 0.95) 0%,
+      rgba(5, 8, 22, 0.98) 48%,
+      #000 100%
+    );
+
+  touch-action: none;
+}
+
+/* =====================================================
+   NEBULA BACKGROUND
+   ===================================================== */
+
+.nebula {
+  position: absolute;
+
+  width: 70vw;
+  height: 70vw;
+
+  border-radius: 50%;
+  filter: blur(100px);
+
+  opacity: 0.14;
+  pointer-events: none;
+
+  animation: drift 16s ease-in-out infinite alternate;
+}
+
+.nebula-one {
+  top: -30%;
+  left: -15%;
+
+  background: rgba(80, 80, 255, 0.35);
+}
+
+.nebula-two {
+  right: -20%;
+  bottom: -40%;
+
+  background: rgba(130, 50, 255, 0.25);
+
+  animation-delay: -8s;
+}
+
+/* =====================================================
+   STAR FIELDS
+   ===================================================== */
+
+.star-field {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+  background-repeat: repeat;
+}
+
+.star-field-far {
+  opacity: 0.32;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.9) 0.6px,
+      transparent 1px
+    ),
+    radial-gradient(
+      circle,
+      rgba(150, 180, 255, 0.7) 0.8px,
+      transparent 1.2px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.6) 0.5px,
+      transparent 1px
+    );
+
+  background-size:
+    137px 173px,
+    211px 197px,
+    89px 127px;
+
+  background-position:
+    17px 29px,
+    63px 101px,
+    42px 71px;
+
+  animation: driftStars 45s linear infinite;
+}
+
+.star-field-near {
+  opacity: 0.18;
+
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 1px,
+      transparent 1.5px
+    ),
+    radial-gradient(
+      circle,
+      rgba(180, 190, 255, 0.8) 0.8px,
+      transparent 1.4px
+    );
+
+  background-size:
+    263px 229px,
+    347px 311px;
+
+  background-position:
+    21px 81px,
+    151px 39px;
+
+  animation: driftStarsReverse 70s linear infinite;
+}
+
+/* =====================================================
+   COSMIC CAMERA
+   ===================================================== */
+
+.cosmic-camera {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  will-change: transform;
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+/* =====================================================
+   FIRST STAR POSITION
+   ===================================================== */
+
+.star-center {
+  position: absolute;
+
+  top: 46%;
+  left: 50%;
+
+  width: 0;
+  height: 0;
+}
+
+/* =====================================================
+   STAR SYSTEM
+   ===================================================== */
+
+.star-system {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 240px;
+  height: 240px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: translate(-50%, -50%);
+
+  will-change: transform;
+}
+.cosmos {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* =====================================================
+   PHASE 2 SECOND STAR
+   ===================================================== */
+
+.phase-two-star-position {
+  position: absolute;
+
+  top: 46%;
+  left: calc(50% - 250px);
+
+  width: 0;
+  height: 0;
+}
+
+.second-star-system {
+  opacity: 0;
+}
+/* =====================================================
+   ENERGY RINGS
+   ===================================================== */
+
+.energy-ring {
+  position: absolute;
+
+  top: 46%;
+  left: 50%;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(190, 200, 255, 0.7);
+
+  box-shadow:
+    0 0 20px rgba(130, 140, 255, 0.45),
+    inset 0 0 15px rgba(180, 190, 255, 0.15);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 4;
+}
+
+.ring-two {
+  border-color: rgba(160, 120, 255, 0.55);
+}
+
+/* =====================================================
+   STAR GLOWS
+   ===================================================== */
+
+.star-glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.glow-large {
+  width: 220px;
+  height: 220px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(130, 145, 255, 0.1) 0%,
+      rgba(100, 100, 255, 0.04) 35%,
+      transparent 72%
+    );
+
+  filter: blur(12px);
+  animation: breatheLarge 4s ease-in-out infinite;
+}
+
+.glow-medium {
+  width: 120px;
+  height: 120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(180, 190, 255, 0.16) 0%,
+      rgba(120, 100, 255, 0.06) 45%,
+      transparent 75%
+    );
+
+  filter: blur(8px);
+  animation: breatheMedium 2.5s ease-in-out infinite;
+}
+
+.glow-small {
+  width: 55px;
+  height: 55px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(210, 215, 255, 0.25) 30%,
+      transparent 72%
+    );
+
+  filter: blur(4px);
+}
+
+/* =====================================================
+   FIRST / FINAL WHITE STAR
+   ===================================================== */
+
+.signal-star {
+  width: 13px;
+  height: 13px;
+
+  position: relative;
+  z-index: 2;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #ffffff 0%,
+      #f6f7ff 30%,
+      #cdd5ff 68%,
+      #aab5ff 100%
+    );
+
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 1),
+    0 0 18px rgba(220, 225, 255, 0.9),
+    0 0 40px rgba(130, 140, 255, 0.55),
+    0 0 80px rgba(100, 90, 255, 0.25);
+
+  animation: starPulse 2.2s ease-in-out infinite;
+}
+
+/* =====================================================
+   SECOND STAR
+   ===================================================== */
+
+.second-glow-large {
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 150, 220, 0.14) 0%,
+      rgba(190, 90, 255, 0.05) 38%,
+      transparent 72%
+    );
+}
+
+.second-glow-medium {
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 200, 235, 0.2) 0%,
+      rgba(220, 110, 255, 0.07) 45%,
+      transparent 75%
+    );
+}
+
+.second-glow-small {
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.75) 0%,
+      rgba(255, 180, 230, 0.3) 35%,
+      transparent 72%
+    );
+}
+
+.second-star-core {
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #ffffff 0%,
+      #fff2fa 28%,
+      #ffc9e8 65%,
+      #e99cff 100%
+    );
+
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 1),
+    0 0 20px rgba(255, 180, 230, 0.9),
+    0 0 45px rgba(220, 100, 255, 0.55),
+    0 0 90px rgba(180, 80, 255, 0.25);
+}
+
+/* =====================================================
+   PHASE 3 COSMIC OBJECT BASE
+   ===================================================== */
+
+.cosmic-object {
+  position: absolute;
+
+  opacity: 0;
+  pointer-events: none;
+
+  will-change: transform, opacity;
+}
+
+/* =====================================================
+   BLACK HOLE
+   ===================================================== */
+
+.black-hole-phase {
+  width: 420px;
+  height: 420px;
+
+  left: calc(50% - 210px);
+  top: -650px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.black-hole-glow {
+  position: absolute;
+
+  width: 390px;
+  height: 390px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      transparent 0%,
+      transparent 20%,
+      rgba(130, 80, 255, 0.08) 48%,
+      rgba(70, 30, 180, 0.04) 62%,
+      transparent 75%
+    );
+
+  filter: blur(24px);
+}
+
+.black-hole-disc {
+  position: absolute;
+
+  width: 340px;
+  height: 110px;
+
+  border-radius: 50%;
+
+  border: 5px solid rgba(255, 170, 90, 0.42);
+
+  box-shadow:
+    0 0 30px rgba(255, 120, 60, 0.35),
+    0 0 70px rgba(255, 70, 20, 0.15);
+
+  transform: rotate(-16deg);
+  animation: discSpin 5s linear infinite;
+}
+
+.black-hole-core {
+  position: absolute;
+
+  width: 125px;
+  height: 125px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #000 0%,
+      #000 58%,
+      rgba(15, 10, 35, 0.9) 72%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 30px rgba(80, 30, 180, 0.5);
+}
+
+.black-hole-ring {
+  position: absolute;
+
+  border-radius: 50%;
+  border: 1px solid rgba(160, 120, 255, 0.3);
+}
+
+.ring-a {
+  width: 260px;
+  height: 260px;
+
+  animation: slowSpin 9s linear infinite;
+}
+
+.ring-b {
+  width: 320px;
+  height: 320px;
+
+  border-style: dashed;
+
+  animation: slowSpinReverse 14s linear infinite;
+}
+
+/* =====================================================
+   NEUTRON STAR
+   ===================================================== */
+
+.neutron-star-phase {
+  width: 320px;
+  height: 320px;
+
+  left: calc(50% - 160px);
+  top: -1650px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.neutron-glow {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.neutron-glow-large {
+  width: 310px;
+  height: 310px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(120, 190, 255, 0.18) 0%,
+      rgba(70, 120, 255, 0.08) 40%,
+      transparent 72%
+    );
+
+  filter: blur(25px);
+  animation: neutronPulse 2.4s ease-in-out infinite;
+}
+
+.neutron-glow-medium {
+  width: 160px;
+  height: 160px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(220, 245, 255, 0.65) 0%,
+      rgba(100, 180, 255, 0.28) 45%,
+      transparent 72%
+    );
+
+  filter: blur(8px);
+}
+
+.neutron-core {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #ffffff 0%,
+      #dff5ff 32%,
+      #8bd0ff 68%,
+      #427cff 100%
+    );
+
+  box-shadow:
+    0 0 15px #fff,
+    0 0 45px rgba(90, 180, 255, 0.9),
+    0 0 100px rgba(50, 90, 255, 0.45);
+
+  animation: neutronCorePulse 1.5s ease-in-out infinite;
+}
+
+/* =====================================================
+   NEBULA PHASE
+   ===================================================== */
+
+.nebula-phase {
+  width: 650px;
+  height: 500px;
+
+  left: calc(50% - 325px);
+  top: -2650px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nebula-cloud {
+  position: absolute;
+  border-radius: 50%;
+
+  filter: blur(45px);
+  animation: nebulaMorph 8s ease-in-out infinite alternate;
+}
+
+.nebula-cloud-one {
+  width: 420px;
+  height: 260px;
+
+  background: rgba(180, 70, 255, 0.26);
+
+  transform: translate(-90px, -40px);
+}
+
+.nebula-cloud-two {
+  width: 380px;
+  height: 320px;
+
+  background: rgba(60, 130, 255, 0.22);
+
+  transform: translate(110px, 40px);
+
+  animation-delay: -3s;
+}
+
+.nebula-cloud-three {
+  width: 280px;
+  height: 240px;
+
+  background: rgba(255, 100, 180, 0.15);
+
+  transform: translate(30px, -100px);
+
+  animation-delay: -5s;
+}
+
+.nebula-spark {
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 18px rgba(210, 180, 255, 1);
+
+  animation: sparkPulse 2s ease-in-out infinite;
+}
+
+.nebula-spark-one {
+  top: 110px;
+  left: 160px;
+}
+
+.nebula-spark-two {
+  top: 280px;
+  right: 120px;
+
+  animation-delay: -0.7s;
+}
+
+.nebula-spark-three {
+  bottom: 80px;
+  left: 280px;
+
+  animation-delay: -1.2s;
+}
+
+/* =====================================================
+   PULSAR
+   ===================================================== */
+
+.pulsar-phase {
+  width: 450px;
+  height: 450px;
+
+  left: calc(50% - 225px);
+  top: -3650px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pulsar-beam {
+  position: absolute;
+
+  width: 4px;
+  height: 700px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(120, 210, 255, 0.75),
+      rgba(255, 255, 255, 0.95),
+      rgba(120, 210, 255, 0.75),
+      transparent
+    );
+
+  filter: blur(1px);
+
+  box-shadow:
+    0 0 30px rgba(80, 190, 255, 0.5);
+}
+
+.pulsar-beam-one {
+  transform: rotate(28deg);
+}
+
+.pulsar-beam-two {
+  transform: rotate(208deg);
+}
+
+.pulsar-glow {
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(100, 210, 255, 0.25) 0%,
+      rgba(60, 110, 255, 0.08) 50%,
+      transparent 72%
+    );
+
+  filter: blur(24px);
+}
+
+.pulsar-core {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #fff 0%,
+      #d6fbff 30%,
+      #5fcaff 68%,
+      #4a64ff 100%
+    );
+
+  box-shadow:
+    0 0 20px #fff,
+    0 0 65px rgba(70, 200, 255, 0.85),
+    0 0 130px rgba(60, 100, 255, 0.4);
+
+  animation: pulsarPulse 1s ease-in-out infinite;
+}
+
+/* =====================================================
+   QUASAR
+   MOVED HIGHER
+   ===================================================== */
+
+.quasar-phase {
+  width: 520px;
+  height: 520px;
+
+  left: calc(50% - 260px);
+
+  /* Previously -4650px */
+  top: -4500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quasar-disc {
+  position: absolute;
+
+  width: 440px;
+  height: 135px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(255, 255, 255, 0.92) 0%,
+      rgba(255, 220, 130, 0.65) 20%,
+      rgba(255, 110, 40, 0.32) 46%,
+      transparent 72%
+    );
+
+  filter: blur(5px);
+
+  transform: rotate(-12deg);
+  animation: quasarSpin 4.5s linear infinite;
+}
+
+.quasar-core {
+  position: absolute;
+
+  width: 54px;
+  height: 54px;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 25px #fff,
+    0 0 80px rgba(255, 190, 70, 0.9),
+    0 0 180px rgba(255, 90, 30, 0.45);
+}
+
+.quasar-beam {
+  position: absolute;
+
+  width: 18px;
+  height: 560px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 220, 130, 0.4),
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 120, 40, 0.45),
+      transparent
+    );
+
+  filter: blur(5px);
+}
+
+.quasar-beam-top {
+  transform: translateY(-270px);
+}
+
+.quasar-beam-bottom {
+  transform: translateY(270px);
+}
+
+/* =====================================================
+   SUPERNOVA
+   MOVED HIGHER
+   ===================================================== */
+
+.supernova-phase {
+  width: 600px;
+  height: 600px;
+
+  left: calc(50% - 300px);
+
+  /* Previously -5650px */
+  top: -5400px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.supernova-wave {
+  position: absolute;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(255, 150, 100, 0.35);
+
+  animation: supernovaExpand 3.5s ease-out infinite;
+}
+
+.wave-one {
+  width: 120px;
+  height: 120px;
+}
+
+.wave-two {
+  width: 240px;
+  height: 240px;
+
+  animation-delay: -1.1s;
+}
+
+.wave-three {
+  width: 400px;
+  height: 400px;
+
+  animation-delay: -2.2s;
+}
+
+.supernova-core {
+  width: 90px;
+  height: 90px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff 0%,
+      #fff2d0 22%,
+      #ffb15a 48%,
+      #ff5f45 72%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 30px #fff,
+    0 0 100px rgba(255, 120, 50, 0.9),
+    0 0 220px rgba(255, 60, 30, 0.4);
+
+  animation: supernovaCore 1.8s ease-in-out infinite;
+}
+
+/* =====================================================
+   FINAL SIGNAL ORIGIN
+   SAME WHITE STAR AS THE BEGINNING
+   MOVED HIGHER
+   ===================================================== */
+
+.final-star-position {
+  position: absolute;
+
+  left: 50%;
+
+  /* Previously -6700px */
+  top: -6600px;
+
+  width: 0;
+  height: 0;
+}
+.final-other-star {
+  position: absolute;
+
+  top: 0;
+  left: 55px;
+
+  width: 0;
+  height: 0;
+
+  opacity: 100;
+}
+
+.final-star-system {
+  opacity: 100;
+}
+
+/* =====================================================
+   PHASE 1 SIGNAL TEXT
+   ===================================================== */
+
+.signal-text {
+  position: absolute;
+
+  top: calc(46% + 40px);
+  left: 50%;
+
+  width: max-content;
+
+  transform: translateX(-50%);
+
+  color: rgba(225, 230, 255, 0.75);
+
+  font-size: 11px;
+  font-weight: 500;
+
+  letter-spacing: 0.55em;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 10px rgba(180, 190, 255, 0.3);
+
+  z-index: 20;
+}
+
+/* =====================================================
+   PHASE 2 CONNECTION MESSAGE
+   ===================================================== */
+
+.connection-message {
+  position: absolute;
+
+  top: calc(46% + 45px);
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+
+  width: max-content;
+
+  opacity: 0;
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.connection-message span {
+  color: rgba(235, 238, 255, 0.9);
+
+  font-size: 11px;
+  font-weight: 500;
+
+  letter-spacing: 0.45em;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 15px rgba(180, 190, 255, 0.4);
+}
+
+.connection-message small {
+  color: rgba(190, 195, 235, 0.55);
+
+  font-size: 8px;
+  font-weight: 400;
+
+  letter-spacing: 0.35em;
+
+  white-space: nowrap;
+}
+
+/* =====================================================
+   REDIRECTION MESSAGE
+   ===================================================== */
+
+.redirect-message {
+  position: absolute;
+
+  top: calc(46% + 25px);
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: max-content;
+
+  color: rgba(255, 210, 220, 0.9);
+
+  font-size: 11px;
+  font-weight: 500;
+
+  letter-spacing: 0.42em;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 15px rgba(255, 130, 170, 0.25);
+
+  pointer-events: none;
+
+  z-index: 30;
+}
+
+/* =====================================================
+   MOVEMENT HINT
+   ===================================================== */
+
+.redirect-hint {
+  position: absolute;
+
+  top: calc(46% + 62px);
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  width: max-content;
+
+  color: rgba(215, 220, 255, 0.72);
+
+  font-size: 9px;
+  font-weight: 500;
+
+  letter-spacing: 0.28em;
+
+  white-space: nowrap;
+
+  pointer-events: none;
+
+  z-index: 5;
+
+  opacity: 1;
+
+  transition:
+    opacity 0.4s ease;
+}
+
+.moving-arrow {
+  font-size: 18px;
+
+  letter-spacing: 0;
+
+  animation: arrowDrift 1.5s ease-in-out infinite;
+}
+
+/* =====================================================
+   JOURNEY PHASE UI
+   ===================================================== */
+
+.journey-phase-number {
+  position: absolute;
+
+  top: 32px;
+  left: 28px;
+
+  color: rgba(180, 190, 255, 0.5);
+
+  font-size: 9px;
+
+  letter-spacing: 0.45em;
+
+  z-index: 50;
+  pointer-events: none;
+}
+
+.journey-phase-label {
+  position: absolute;
+
+  top: 50px;
+  left: 28px;
+
+  color: rgba(235, 240, 255, 0.82);
+
+  font-size: 12px;
+  font-weight: 500;
+
+  letter-spacing: 0.42em;
+
+  white-space: nowrap;
+
+  z-index: 50;
+  pointer-events: none;
+
+  text-shadow:
+    0 0 18px rgba(150, 180, 255, 0.25);
+}
+
+.journey-phase-description {
+  position: absolute;
+
+  top: 76px;
+  left: 28px;
+
+  width: min(280px, 28vw);
+
+  color: rgba(190, 200, 235, 0.52);
+
+  font-size: 8px;
+  font-weight: 400;
+
+  line-height: 1.8;
+  letter-spacing: 0.2em;
+
+  z-index: 50;
+  pointer-events: none;
+
+  text-shadow:
+    0 0 15px rgba(130, 150, 255, 0.12);
+}
+
+/* =====================================================
+   JOURNEY COMPLETE
+   ===================================================== */
+
+.journey-complete {
+  position: absolute;
+
+  left: 50%;
+  top: 68%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 12px;
+
+  width: max-content;
+
+  pointer-events: none;
+
+  z-index: 60;
+}
+
+.journey-complete span {
+  color: rgba(225, 230, 255, 0.95);
+
+  font-size: 12px;
+  font-weight: 500;
+
+  letter-spacing: 0.55em;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 20px rgba(180, 190, 255, 0.35);
+}
+
+.journey-complete small {
+  color: rgba(205, 210, 235, 0.55);
+
+  font-size: 8px;
+
+  letter-spacing: 0.32em;
+
+  white-space: nowrap;
+}
+
+/* =====================================================
+   ANIMATIONS
+   ===================================================== */
+
+@keyframes starPulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+
+@keyframes breatheLarge {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+
+@keyframes breatheMedium {
+  0%,
+  100% {
+    transform: scale(0.85);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform:
+      translate3d(-2%, -2%, 0)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translate3d(4%, 5%, 0)
+      scale(1.08);
+  }
+}
+
+@keyframes driftStars {
+  from {
+    background-position:
+      17px 29px,
+      63px 101px,
+      42px 71px;
+  }
+
+  to {
+    background-position:
+      200px 350px,
+      320px 400px,
+      250px 280px;
+  }
+}
+
+@keyframes driftStarsReverse {
+  from {
+    background-position:
+      21px 81px,
+      151px 39px;
+  }
+
+  to {
+    background-position:
+      -280px -350px,
+      -200px -300px;
+  }
+}
+
+@keyframes arrowDrift {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+
+@keyframes discSpin {
+  from {
+    transform:
+      rotate(-16deg)
+      rotateY(0deg);
+  }
+
+  to {
+    transform:
+      rotate(344deg)
+      rotateY(360deg);
+  }
+}
+
+@keyframes slowSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slowSpinReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes neutronPulse {
+  0%,
+  100% {
+    transform: scale(0.85);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes neutronCorePulse {
+  0%,
+  100% {
+    transform: scale(0.85);
+  }
+
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+@keyframes nebulaMorph {
+  0% {
+    transform:
+      translate(-70px, -30px)
+      scale(0.9);
+  }
+
+  100% {
+    transform:
+      translate(-100px, -60px)
+      scale(1.12);
+  }
+}
+
+@keyframes sparkPulse {
+  0%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@keyframes pulsarPulse {
+  0%,
+  100% {
+    transform: scale(0.85);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+@keyframes quasarSpin {
+  from {
+    transform:
+      rotate(-12deg)
+      scaleX(1);
+  }
+
+  50% {
+    transform:
+      rotate(168deg)
+      scaleX(0.82);
+  }
+
+  to {
+    transform:
+      rotate(348deg)
+      scaleX(1);
+  }
+}
+
+@keyframes supernovaExpand {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+@keyframes supernovaCore {
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.75;
+  }
+
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 600px) {
+  .star-center {
+    top: 44%;
+    left: 50%;
+  }
+
+  .energy-ring {
+    top: 44%;
+    left: 50%;
+  }
+
+  .star-system {
+    width: 180px;
+    height: 180px;
+  }
+
+.phase-two-star-position {
+  top: 44%;
+  left: calc(50% - 120px);
+}
+
+  .final-star-position {
+    left: 50%;
+  }
+
+  .glow-large {
+    width: 170px;
+    height: 170px;
+  }
+
+  .glow-medium {
+    width: 95px;
+    height: 95px;
+  }
+
+  .glow-small {
+    width: 45px;
+    height: 45px;
+  }
+
+  .signal-star {
+    width: 11px;
+    height: 11px;
+  }
+
+  .signal-text {
+    top: calc(44% + 32px);
+    left: 50%;
+
+    font-size: 9px;
+    letter-spacing: 0.4em;
+  }
+
+  .connection-message {
+    top: calc(44% + 38px);
+    left: 50%;
+  }
+
+  .connection-message span {
+    font-size: 8px;
+    letter-spacing: 0.3em;
+  }
+
+  .connection-message small {
+    font-size: 7px;
+    letter-spacing: 0.25em;
+  }
+
+  .redirect-message {
+    top: calc(44% + 28px);
+    left: 50%;
+
+    font-size: 8px;
+    letter-spacing: 0.28em;
+  }
+
+  .redirect-hint {
+    top: calc(44% + 57px);
+    left: 50%;
+
+    gap: 8px;
+
+    font-size: 7px;
+    letter-spacing: 0.16em;
+
+    max-width: 90vw;
+
+    white-space: normal;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .moving-arrow {
+    font-size: 14px;
+  }
+
+  .journey-phase-number {
+    top: 24px;
+    left: 22px;
+
+    font-size: 7px;
+  }
+
+  .journey-phase-label {
+    top: 38px;
+    left: 22px;
+
+    font-size: 8px;
+    letter-spacing: 0.3em;
+  }
+
+  .journey-phase-description {
+    top: 60px;
+    left: 22px;
+
+    width: min(280px, 80vw);
+
+    font-size: 7px;
+
+    line-height: 1.7;
+
+    letter-spacing: 0.08em;
+  }
+
+  .journey-complete {
+    left: 50%;
+    top: 68%;
+  }
+
+  .journey-complete span {
+    font-size: 8px;
+    letter-spacing: 0.35em;
+  }
+
+  .journey-complete small {
+    font-size: 6px;
+    letter-spacing: 0.2em;
+  }
+
+  .black-hole-phase,
+  .neutron-star-phase,
+  .pulsar-phase,
+  .quasar-phase,
+  .supernova-phase {
+    transform: scale(0.7);
+  }
+
+  .nebula-phase {
+    transform: scale(0.65);
+  }
+
+  .nebula {
+    width: 120vw;
+    height: 120vw;
+
+    filter: blur(70px);
+  }
+}
