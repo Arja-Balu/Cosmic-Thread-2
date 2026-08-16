@@ -61,21 +61,21 @@ function App() {
   const phases = [
     {
       number: "01",
-      label: "BLACK HOLE",
+      label: "BE CAREFUL YOU FOUND A 'BLACK HOLE' ON YOUR WAY",
       description:
         "NOTHING CAN ESCAPE ITS IMMENSE GRAVITATIONAL PULL. I HOPE NO GOOD OPPORTUNITY EVER SLIPS AWAY FROM YOU..",
       ref: blackHoleRef,
     },
     {
       number: "02",
-      label: "NEUTRON STAR",
+      label: "WOAH.., A NEUTRON STAR",
       description:
         "ONE OF THE DENSEST OBJECTS IN THE UNIVERSE. I HOPE YOU ALWAYS REMAIN STRONG, NO MATTER HOW HEAVY LIFE GETS.",
       ref: neutronStarRef,
     },
     {
       number: "03",
-      label: "NEBULA",
+      label: "NEBULA, NOT BAD",
       description:
         "WHERE CLOUDS OF DUST AND GAS CAN BECOME THE BIRTHPLACE OF NEW STARS. I HOPE YOU ALWAYS TURN EVERY BEGINNING INTO SOMETHING BEAUTIFUL.",
       ref: nebulaPhaseRef,
@@ -89,14 +89,14 @@ function App() {
     },
     {
       number: "05",
-      label: "QUASAR",
+      label: "WEAR SUNGLASSES, YOU ARE NEAR A 'QUASAR'",
       description:
         "ONE OF THE BRIGHTEST OBJECTS IN THE UNIVERSE. I HOPE YOU WILL ALWAYS BE THE BRIGHTEST.",
       ref: quasarRef,
     },
     {
       number: "06",
-      label: "SUPERNOVA",
+      label: "RELAX, IT’S JUST A 'SUPERNOVA'.",
       description:
         "A DYING STAR CAN RELEASE AN ENORMOUS BURST OF ENERGY AND CREATE THE ELEMENTS THAT BUILD NEW WORLDS. I HOPE EVERY GOOD ENDING IN YOUR LIFE BECOMES THE BEGINNING OF SOMETHING MORE BEAUTIFUL.",
       ref: supernovaRef,
