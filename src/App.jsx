@@ -1116,8 +1116,7 @@ function App() {
   // ==================================================
 
   const downloadRakhiMessage = () => {
-
-    const message = `DEAR AKKKAAA,
+  const message = `DEAR AKKKAAA,
 
 HAPPY RAKSHABANDHAN! ❤️
 
@@ -1138,43 +1137,153 @@ WITH LOTS OF LOVE,
 YOUR LITTLE LITTLE BROTHER. ✨
 `;
 
-    // ==================================================
-    // BUILD PDF
-    // ==================================================
+  // ==================================================
+  // BUILD PDF
+  // ==================================================
 
-    const doc = new jsPDF({
-      unit: "pt",
-      format: "a4",
-    });
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "a4",
+  });
 
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
 
-    const marginX = 64;
-    const topMargin = 90;
-    const bottomMargin = 70;
-    const maxTextWidth = pageWidth - marginX * 2;
-    const lineHeight = 20;
+  const marginX = 64;
+  const topMargin = 90;
+  const bottomMargin = 70;
+  const maxTextWidth = pageWidth - marginX * 2;
+  const lineHeight = 20;
 
-    doc.setFont("helvetica", "normal");
-    doc.setFontSize(12);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(12);
 
-    const lines = doc.splitTextToSize(message, maxTextWidth);
+  // --------------------------------------------------
+  // Split message while preserving emojis
+  // --------------------------------------------------
 
-    let cursorY = topMargin;
+  const paragraphs = message.split("\n");
 
-    lines.forEach((line) => {
+  let cursorY = topMargin;
+
+  paragraphs.forEach((paragraph) => {
+
+    // Empty line
+    if (paragraph.trim() === "") {
+      cursorY += lineHeight;
+
       if (cursorY > pageHeight - bottomMargin) {
         doc.addPage();
         cursorY = topMargin;
       }
 
-      doc.text(line, marginX, cursorY);
-      cursorY += lineHeight;
+      return;
+    }
+
+    // ------------------------------------------------
+    // Separate emoji from normal text
+    // ------------------------------------------------
+
+    const parts = paragraph.split(/(❤️|✨)/g);
+
+    let cursorX = marginX;
+
+    parts.forEach((part) => {
+
+      if (!part) return;
+
+      // ==============================================
+      // HEART EMOJI
+      // ==============================================
+
+      if (part === "❤️") {
+
+        // Draw a heart using PDF shapes instead of
+        // relying on a font glyph.
+        doc.setTextColor(220, 0, 0);
+        doc.setFontSize(14);
+
+        doc.text("♥", cursorX, cursorY);
+
+        cursorX += doc.getTextWidth("♥") + 2;
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+
+      }
+
+      // ==============================================
+      // SPARKLE EMOJI
+      // ==============================================
+
+      else if (part === "✨") {
+
+        doc.setTextColor(218, 165, 32);
+        doc.setFontSize(14);
+
+        // Unicode sparkle isn't available in Helvetica,
+        // so use a simple star symbol.
+        doc.text("✦", cursorX, cursorY);
+
+        cursorX += doc.getTextWidth("✦") + 2;
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+
+      }
+
+      // ==============================================
+      // NORMAL TEXT
+      // ==============================================
+
+      else {
+
+        const words = part.split(" ");
+
+        words.forEach((word, index) => {
+
+          const text = index === words.length - 1
+            ? word
+            : word + " ";
+
+          const wordWidth = doc.getTextWidth(text);
+
+          // Move to next line if necessary
+          if (
+            cursorX + wordWidth >
+            pageWidth - marginX
+          ) {
+            cursorY += lineHeight;
+            cursorX = marginX;
+
+            if (cursorY > pageHeight - bottomMargin) {
+              doc.addPage();
+              cursorY = topMargin;
+            }
+          }
+
+          doc.text(text, cursorX, cursorY);
+
+          cursorX += wordWidth;
+        });
+      }
     });
 
-    doc.save("MessageFromThambi.pdf");
-  };
+    cursorY += lineHeight;
+
+    // Page break
+    if (cursorY > pageHeight - bottomMargin) {
+      doc.addPage();
+      cursorY = topMargin;
+    }
+  });
+
+  // ==================================================
+  // SAVE
+  // ==================================================
+
+  doc.save("MessageFromThambi.pdf");
+};
 
   // ==================================================
   // RETURN
